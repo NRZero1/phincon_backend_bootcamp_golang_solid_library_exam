@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"errors"
 	"fmt"
 	"solid_library_exam/internal/domain"
 )
@@ -26,7 +25,7 @@ func NewBookRepository() BookRepositoryInterface {
 
 func (repo BookRepository) Save(book *domain.Book) error {
 	if _, exists := repo.books[book.ID]; exists {
-		return errors.New(fmt.Sprintf("Book with ID %s already exist", book.ID))
+		return fmt.Errorf("book with ID %d already exist", book.ID)
 	}
 	repo.books[book.ID] = *book
 	fmt.Println("Saved data: ", repo.books)

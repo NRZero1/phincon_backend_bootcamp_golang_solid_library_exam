@@ -10,11 +10,11 @@ type BookUseCase struct {
 }
 
 type BookUseCaseInterface interface {
-	AddBook
+	Save
 }
 
-type AddBook interface {
-	AddBook(domain.Book) error
+type Save interface {
+	Save(domain.Book) error
 }
 
 type BookUseCaseImpl struct {
@@ -27,7 +27,7 @@ func NewBookUseCase(bookRepo repository.BookRepositoryInterface) BookUseCaseInte
 	}
 }
 
-func (uc BookUseCaseImpl) AddBook(book domain.Book) error {
+func (uc BookUseCaseImpl) Save(book domain.Book) error {
 	err := uc.bookRepo.Save(&book)
 
 	if err != nil {
