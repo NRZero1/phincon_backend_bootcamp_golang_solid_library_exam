@@ -1,6 +1,8 @@
+package domain
+
 type Book struct {
-	ID int
-	Title string
+	ID     int
+	Title  string
 	Author string
 	Status bool
 }
