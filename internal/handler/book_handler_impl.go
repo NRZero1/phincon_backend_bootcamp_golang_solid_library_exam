@@ -6,21 +6,55 @@ import (
 )
 
 type BookHandler struct {
-	BookSave usecase.BookSave
+	bookUseCase usecase.BookUseCaseInterface
 }
 
-func NewBookHandler(bookUseCase usecase.BookSave) usecase.BookSave {
+func NewBookHandler(bookUseCase usecase.BookUseCaseInterface) BookHandlerInterface {
 	return BookHandler{
-		BookSave: bookUseCase,
+		bookUseCase: bookUseCase,
 	}
 }
 
 func (h BookHandler) Save(book domain.Book) (domain.Book, error) {
-	savedBook, err := h.BookSave.Save(book)
+	savedBook, err := h.bookUseCase.Save(book)
 
 	if err != nil {
 		return domain.Book{}, err
 	}
 
 	return savedBook, nil
+}
+
+func (h BookHandler) SetUserId(idBook int, idUser int) (domain.Book, error) {
+	book, err := h.bookUseCase.SetUserId(idBook, idUser)
+
+	if err != nil {
+		return domain.Book{}, nil
+	}
+
+	return book, nil
+}
+
+func (h BookHandler) FindById(id int) (domain.Book, error) {
+	foundBook, err := h.bookUseCase.FindById(id)
+
+	if err != nil {
+		return domain.Book{}, err
+	}
+
+	return foundBook, nil
+}
+
+func (h BookHandler) FindByTitle(title string) ([]domain.Book, error) {
+	foundBook, err := h.bookUseCase.FindByTitle(title)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return foundBook, nil
+}
+
+func (h BookHandler) GetAll() ([]domain.Book) {
+	return h.bookUseCase.GetAll()
 }
