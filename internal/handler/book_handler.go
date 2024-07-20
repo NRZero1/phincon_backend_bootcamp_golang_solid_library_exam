@@ -4,6 +4,8 @@ import (
 	"solid_library_exam/internal/domain"
 )
 
+/*seperating function into each of their own interface so struct won't be forced to implement
+function it doesn't need (implementing I)*/
 type BookHandlerInterface interface {
 	BookSave
 	BookSetUserId
