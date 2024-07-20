@@ -4,7 +4,7 @@ import "solid_library_exam/internal/domain"
 
 type BookRepositoryInterface interface {
 	BookSave
-	BookUpdateStatus
+	BookSetUserId
 	BookFindById
 	BookFindByTitle
 }
@@ -21,6 +21,6 @@ type BookFindByTitle interface {
 	FindByTitle(string) ([]domain.Book, error)
 }
 
-type BookUpdateStatus interface {
-	UpdateStatus(int) (domain.Book, error)
+type BookSetUserId interface {
+	SetUserId(int, int) (domain.Book, error)
 }

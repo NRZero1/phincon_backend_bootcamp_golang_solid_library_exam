@@ -6,13 +6,7 @@ import (
 
 type BookUseCaseInterface interface {
 	BookSave
-	BookUpdateStatus
-	BookFindById
-	BookFindByTitle
-}
-
-type BookUseCaseInterfaceHandler interface {
-	BookSave
+	BookSetUserId
 	BookFindById
 	BookFindByTitle
 }
@@ -21,8 +15,8 @@ type BookSave interface {
 	Save(domain.Book) (domain.Book, error)
 }
 
-type BookUpdateStatus interface {
-	UpdateStatus(int) (domain.Book, error)
+type BookSetUserId interface {
+	SetUserId(int, int) (domain.Book, error)
 }
 
 type BookFindById interface {

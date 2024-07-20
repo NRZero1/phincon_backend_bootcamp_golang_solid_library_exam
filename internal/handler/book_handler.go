@@ -6,12 +6,17 @@ import (
 
 type BookHandlerInterface interface {
 	BookSave
+	BookSetUserId
 	BookFindById
 	BookFindByTitle
 }
 
 type BookSave interface {
 	Save(domain.Book) (domain.Book, error)
+}
+
+type BookSetUserId interface {
+	SetUserId(int, int) (domain.Book, error)
 }
 
 type BookFindById interface {

@@ -23,14 +23,14 @@ func (repo BookRepository) Save(book *domain.Book) (domain.Book, error) {
 	return repo.books[book.ID], nil
 }
 
-func (repo BookRepository) UpdateStatus(id int) (domain.Book, error) {
-	foundBook, err := repo.FindById(id)
+func (repo BookRepository) SetUserId(idBook int, idUser int) (domain.Book, error) {
+	foundBook, err := repo.FindById(idBook)
 
 	if err != nil {
 		return domain.Book{}, err
 	}
 
-	foundBook.Status = !foundBook.Status
+	foundBook.UserId = idUser
 	return foundBook, nil
 }
 
