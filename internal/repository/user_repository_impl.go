@@ -24,3 +24,13 @@ func (repo UserRepository) Save(user *domain.User) (domain.User, error) {
 	fmt.Println("Saved data: ", repo.users[user.ID])
 	return repo.users[user.ID], nil
 }
+
+func (repo UserRepository) FindByUsername(username string) (domain.User, error) {
+	for k, v := range repo.users {
+		if v.Username == username {
+			return repo.users[k], nil
+		}
+	}
+
+	return domain.User{}, fmt.Errorf("user with username %s doesn't exist", username)
+}

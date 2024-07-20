@@ -24,3 +24,13 @@ func (uc UserUseCase) Save(user domain.User) (domain.User, error) {
 
 	return savedUser, nil
 }
+
+func (uc UserUseCase) FindByUsername(username string) (domain.User, error) {
+	foundUser, err := uc.repo.FindByUsername(username)
+
+	if err != nil {
+		return domain.User{}, err
+	}
+
+	return foundUser, nil
+}
