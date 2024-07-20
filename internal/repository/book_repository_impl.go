@@ -24,9 +24,30 @@ func (repo BookRepository) Save(book *domain.Book) (domain.Book, error) {
 }
 
 func (repo BookRepository) UpdateStatus(id int) (domain.Book, error) {
-	if foundBook, exists := repo.books[id]; exists {
-		foundBook.Status = !foundBook.Status
+	foundBook, err := repo.FindById(id)
+
+	if err != nil {
+		return domain.Book{}, err
+	}
+
+	foundBook.Status = !foundBook.Status
+	return foundBook, nil
+}
+
+func (repo BookRepository) FindById(id int) (domain.Book, error) {
+	if foundBook, exist := repo.books[id]; exist {
 		return foundBook, nil
 	}
-	return domain.Book{}, nil
+
+	return domain.Book{}, fmt.Errorf("no book with ID %d exist", id)
+}
+
+func (repo BookRepository) FindByTitle(title string) (domain.Book, error) {
+	for k, v := range repo.books {
+		if v.Title == title {
+			return repo.books[k], nil
+		}
+	}
+
+	return domain.Book{}, fmt.Errorf("no book with title '%s' exist(s)", title)
 }

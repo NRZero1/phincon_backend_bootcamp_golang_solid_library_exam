@@ -34,3 +34,23 @@ func (uc BookUseCase) UpdateStatus(id int) (domain.Book, error) {
 
 	return book, nil
 }
+
+func (uc BookUseCase) FindById(id int) (domain.Book, error) {
+	foundBook, err := uc.repo.FindById(id)
+
+	if err != nil {
+		return domain.Book{}, err
+	}
+
+	return foundBook, nil
+}
+
+func (uc BookUseCase) FindByTitle(title string) (domain.Book, error) {
+	foundBook, err := uc.repo.FindByTitle(title)
+
+	if err != nil {
+		return domain.Book{}, err
+	}
+
+	return foundBook, nil
+}
