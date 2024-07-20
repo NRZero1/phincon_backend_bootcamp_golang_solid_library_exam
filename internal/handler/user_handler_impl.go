@@ -24,3 +24,13 @@ func (h UserHandler) Save(user domain.User) (domain.User, error) {
 
 	return savedUser, nil
 }
+
+func (h UserHandler) FindByUsername(username string) (domain.User, error) {
+	foundUser, err := h.UserUseCase.FindByUsername(username)
+
+	if err != nil {
+		return domain.User{}, err
+	}
+
+	return foundUser, nil
+}
