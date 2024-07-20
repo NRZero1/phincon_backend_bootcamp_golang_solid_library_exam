@@ -49,7 +49,7 @@ func (uc BookUseCase) FindByTitle(title string) ([]domain.Book, error) {
 	foundBook, err := uc.repo.FindByTitle(title)
 
 	if err != nil {
-		return []domain.Book{}, err
+		return nil, err
 	}
 
 	return foundBook, nil

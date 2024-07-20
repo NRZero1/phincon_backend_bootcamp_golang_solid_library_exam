@@ -43,7 +43,7 @@ func (h BookHandler) FindByTitle(title string) ([]domain.Book, error) {
 	foundBook, err := h.BookFindByTitle.FindByTitle(title)
 
 	if err != nil {
-		return []domain.Book{}, err
+		return nil, err
 	}
 
 	return foundBook, nil
