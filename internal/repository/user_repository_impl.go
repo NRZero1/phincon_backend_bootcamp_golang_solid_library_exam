@@ -34,3 +34,56 @@ func (repo UserRepository) FindByUsername(username string) (domain.User, error) 
 
 	return domain.User{}, fmt.Errorf("user with username %s doesn't exist", username)
 }
+
+func (repo UserRepository) FindById(id int) (domain.User, error) {
+	if foundUser, exists := repo.users[id]; exists {
+		return foundUser, nil
+	}
+
+	return domain.User{}, fmt.Errorf("no user found with Id %d", id)
+}
+
+func (repo UserRepository) BorrowBook(idUser int, book domain.Book) domain.User {
+    foundUser, _ := repo.FindById(idUser)
+    foundUser.ListOfBorrowedBooks = append(foundUser.ListOfBorrowedBooks, book)
+    
+    repo.users[idUser] = foundUser
+    
+    return repo.users[idUser]
+}
+
+func (repo UserRepository) GetAll() ([]domain.User) {
+	listOfUsers := make([]domain.User, 0, len(repo.users))
+
+	for _, v := range repo.users {
+		listOfUsers = append(listOfUsers, v)
+	}
+
+	return listOfUsers
+}
+
+func (repo UserRepository) ReturnBook(userId int, bookId int) (domain.User, error) {
+	user, err := repo.FindById(userId)
+
+	if err != nil {
+		return domain.User{}, err
+	}
+
+	var updatedList []domain.Book
+	bookFound := false
+	for _, b := range user.ListOfBorrowedBooks {
+		if b.ID == bookId {
+			bookFound = true
+			continue
+		}
+		updatedList = append(updatedList, b)
+	}
+
+	if !bookFound {
+		return domain.User{}, errors.New("book not found in user's borrowed list")
+	}
+
+	user.ListOfBorrowedBooks = updatedList
+
+	return user, nil
+}

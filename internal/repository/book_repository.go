@@ -7,6 +7,7 @@ type BookRepositoryInterface interface {
 	BookSetUserId
 	BookFindById
 	BookFindByTitle
+	BookGetAll
 }
 
 type BookSave interface {
@@ -23,4 +24,8 @@ type BookFindByTitle interface {
 
 type BookSetUserId interface {
 	SetUserId(int, int) (domain.Book, error)
+}
+
+type BookGetAll interface {
+	GetAll() ([]domain.Book)
 }

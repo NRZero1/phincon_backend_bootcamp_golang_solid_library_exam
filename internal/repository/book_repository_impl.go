@@ -31,6 +31,7 @@ func (repo BookRepository) SetUserId(idBook int, idUser int) (domain.Book, error
 	}
 
 	foundBook.UserId = idUser
+	repo.books[idBook] = foundBook
 	return foundBook, nil
 }
 
@@ -55,4 +56,14 @@ func (repo BookRepository) FindByTitle(title string) ([]domain.Book, error) {
 	}
 
 	return foundBooks, nil
+}
+
+func (repo BookRepository) GetAll() ([]domain.Book) {
+	listOfBooks := make([]domain.Book, 0, len(repo.books))
+
+	for _, v := range repo.books {
+		listOfBooks = append(listOfBooks, v)
+	}
+
+	return listOfBooks
 }

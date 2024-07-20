@@ -54,3 +54,7 @@ func (h BookHandler) FindByTitle(title string) ([]domain.Book, error) {
 
 	return foundBook, nil
 }
+
+func (h BookHandler) GetAll() ([]domain.Book) {
+	return h.bookUseCase.GetAll()
+}

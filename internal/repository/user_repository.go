@@ -6,23 +6,33 @@ import (
 
 type UserRepositoryInterface interface {
 	UserSave
-	// UserBorrowBook
-	// UserReturnBook
 	UserFindByUsername
+	UserFindById
+	UserBorrowBook
+	UserGetAll
+	UserReturnBook
 }
 
 type UserSave interface {
 	Save(*domain.User) (domain.User, error)
 }
 
-type UserReturnBook interface {
-	ReturnBook(int) (domain.User, error)
+type UserFindByUsername interface {
+	FindByUsername(string) (domain.User, error)
+}
+
+type UserFindById interface {
+	FindById(int) (domain.User, error)
 }
 
 type UserBorrowBook interface {
-	BorrowBook(int) (domain.User, error)
+	BorrowBook(int, domain.Book) (domain.User)
 }
 
-type UserFindByUsername interface {
-	FindByUsername(string) (domain.User, error)
+type UserGetAll interface {
+	GetAll() ([]domain.User)
+}
+
+type UserReturnBook interface {
+	ReturnBook(int, int) (domain.User, error)
 }

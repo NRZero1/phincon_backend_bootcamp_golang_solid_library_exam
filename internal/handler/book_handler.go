@@ -9,6 +9,7 @@ type BookHandlerInterface interface {
 	BookSetUserId
 	BookFindById
 	BookFindByTitle
+	BookGetAll
 }
 
 type BookSave interface {
@@ -25,4 +26,8 @@ type BookFindById interface {
 
 type BookFindByTitle interface {
 	FindByTitle(string) ([]domain.Book, error)
+}
+
+type BookGetAll interface {
+	GetAll() ([]domain.Book)
 }

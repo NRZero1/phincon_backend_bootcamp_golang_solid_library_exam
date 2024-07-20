@@ -54,3 +54,7 @@ func (uc BookUseCase) FindByTitle(title string) ([]domain.Book, error) {
 
 	return foundBook, nil
 }
+
+func (uc BookUseCase) GetAll() ([]domain.Book) {
+	return uc.repo.GetAll()
+}

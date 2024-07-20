@@ -34,3 +34,32 @@ func (uc UserUseCase) FindByUsername(username string) (domain.User, error) {
 
 	return foundUser, nil
 }
+
+func (uc UserUseCase) FindById(id int) (domain.User, error) {
+	foundUser, err := uc.repo.FindById(id)
+
+	if err != nil {
+		return domain.User{}, err
+	}
+
+	return foundUser, nil
+}
+
+func (uc UserUseCase) BorrowBook(idUser int, book domain.Book) (domain.User) {
+	updatedUser := uc.repo.BorrowBook(idUser, book)
+	return updatedUser
+}
+
+func (uc UserUseCase) GetAll() ([]domain.User) {
+	return uc.repo.GetAll()
+}
+
+func (uc UserUseCase) ReturnBook(userId int, bookId int) (domain.User, error) {
+	updatedUser, err := uc.repo.ReturnBook(userId, bookId)
+	
+	if err != nil {
+		return domain.User{}, err
+	}
+
+	return updatedUser, nil
+}
