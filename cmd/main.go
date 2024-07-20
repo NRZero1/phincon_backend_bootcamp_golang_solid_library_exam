@@ -5,10 +5,32 @@ import (
 	"fmt"
 	"os"
 	"reflect"
+	"solid_library_exam/internal/handler"
+	"solid_library_exam/internal/repository"
+	"solid_library_exam/internal/usecase"
 	"strconv"
 )
 
+func initBookHandler() (handler.BookHandlerInterface) {
+	repo := repository.NewBookRepository()
+	uc := usecase.NewBookUseCase(repo)
+	h := handler.NewBookHandler(uc)
+
+	return h
+}
+
+func initUserHandler() (handler.UserHandlerInterface) {
+	repo := repository.NewUserRepository()
+	uc := usecase.NewUserUseCase(repo)
+	h := handler.NewUserHandler(uc)
+
+	return h
+}
+
 func main() {
+	hb := initBookHandler()
+	hu := initUserHandler()
+	
 	reader := bufio.NewReader(os.Stdin)
 	
 	for {
