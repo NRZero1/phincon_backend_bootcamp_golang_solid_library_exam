@@ -7,6 +7,8 @@ import (
 type BookUseCaseInterface interface {
 	BookSave
 	BookUpdateStatus
+	BookFindById
+	BookFindByTitle
 }
 
 type BookSave interface {
@@ -15,4 +17,12 @@ type BookSave interface {
 
 type BookUpdateStatus interface {
 	UpdateStatus(int) (domain.Book, error)
+}
+
+type BookFindById interface {
+	FindById(int) (domain.Book, error)
+}
+
+type BookFindByTitle interface {
+	FindByTitle(string) ([]domain.Book, error)
 }

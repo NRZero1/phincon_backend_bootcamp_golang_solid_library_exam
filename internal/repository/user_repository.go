@@ -8,6 +8,7 @@ type UserRepositoryInterface interface {
 	UserSave
 	// UserBorrowBook
 	// UserReturnBook
+	UserFindByUsername
 }
 
 type UserSave interface {
@@ -20,4 +21,8 @@ type UserReturnBook interface {
 
 type UserBorrowBook interface {
 	BorrowBook(int) (domain.User, error)
+}
+
+type UserFindByUsername interface {
+	FindByUsername(string) (domain.User, error)
 }
