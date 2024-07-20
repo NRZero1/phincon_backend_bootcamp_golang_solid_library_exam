@@ -19,5 +19,5 @@ type BookFindById interface {
 }
 
 type BookFindByTitle interface {
-	FindByTitle(string) (domain.Book, error)
+	FindByTitle(string) ([]domain.Book, error)
 }

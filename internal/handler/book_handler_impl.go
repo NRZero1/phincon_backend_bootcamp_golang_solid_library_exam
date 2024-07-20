@@ -39,11 +39,11 @@ func (h BookHandler) FindById(id int) (domain.Book, error) {
 	return foundBook, nil
 }
 
-func (h BookHandler) FindByTitle(title string) (domain.Book, error) {
+func (h BookHandler) FindByTitle(title string) ([]domain.Book, error) {
 	foundBook, err := h.BookFindByTitle.FindByTitle(title)
 
 	if err != nil {
-		return domain.Book{}, err
+		return []domain.Book{}, err
 	}
 
 	return foundBook, nil

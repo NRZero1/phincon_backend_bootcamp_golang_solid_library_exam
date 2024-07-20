@@ -42,12 +42,17 @@ func (repo BookRepository) FindById(id int) (domain.Book, error) {
 	return domain.Book{}, fmt.Errorf("no book with ID %d exist", id)
 }
 
-func (repo BookRepository) FindByTitle(title string) (domain.Book, error) {
-	for k, v := range repo.books {
+func (repo BookRepository) FindByTitle(title string) ([]domain.Book, error) {
+	var foundBooks []domain.Book
+	for _, v := range repo.books {
 		if v.Title == title {
-			return repo.books[k], nil
+			foundBooks = append(foundBooks, v)
 		}
 	}
 
-	return domain.Book{}, fmt.Errorf("no book with title '%s' exist(s)", title)
+	if len(foundBooks) == 0 {
+		return nil, fmt.Errorf("no books with title '%s' exist", title)
+	}
+
+	return foundBooks, nil
 }

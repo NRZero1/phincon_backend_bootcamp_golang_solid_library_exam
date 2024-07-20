@@ -45,11 +45,11 @@ func (uc BookUseCase) FindById(id int) (domain.Book, error) {
 	return foundBook, nil
 }
 
-func (uc BookUseCase) FindByTitle(title string) (domain.Book, error) {
+func (uc BookUseCase) FindByTitle(title string) ([]domain.Book, error) {
 	foundBook, err := uc.repo.FindByTitle(title)
 
 	if err != nil {
-		return domain.Book{}, err
+		return []domain.Book{}, err
 	}
 
 	return foundBook, nil
