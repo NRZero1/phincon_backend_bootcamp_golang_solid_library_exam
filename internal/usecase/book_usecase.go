@@ -11,6 +11,12 @@ type BookUseCaseInterface interface {
 	BookFindByTitle
 }
 
+type BookUseCaseInterfaceHandler interface {
+	BookSave
+	BookFindById
+	BookFindByTitle
+}
+
 type BookSave interface {
 	Save(domain.Book) (domain.Book, error)
 }

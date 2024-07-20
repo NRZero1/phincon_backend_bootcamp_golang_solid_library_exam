@@ -6,21 +6,17 @@ import (
 )
 
 type BookHandler struct {
-	BookSave usecase.BookSave
-	BookFindByTitle usecase.BookFindByTitle
-	BookFindById usecase.BookFindById
+	bookUseCase usecase.BookUseCaseInterfaceHandler
 }
 
-func NewBookHandler(bookUseCaseSave usecase.BookSave, bookUseCaseFindById usecase.BookFindById, bookUseCaseFindByTitle usecase.BookFindByTitle) BookHandlerInterface {
+func NewBookHandler(bookUseCase usecase.BookUseCaseInterfaceHandler) BookHandlerInterface {
 	return BookHandler{
-		BookSave: bookUseCaseSave,
-		BookFindByTitle: bookUseCaseFindByTitle,
-		BookFindById: bookUseCaseFindById,
+		bookUseCase: bookUseCase,
 	}
 }
 
 func (h BookHandler) Save(book domain.Book) (domain.Book, error) {
-	savedBook, err := h.BookSave.Save(book)
+	savedBook, err := h.bookUseCase.Save(book)
 
 	if err != nil {
 		return domain.Book{}, err
@@ -30,7 +26,7 @@ func (h BookHandler) Save(book domain.Book) (domain.Book, error) {
 }
 
 func (h BookHandler) FindById(id int) (domain.Book, error) {
-	foundBook, err := h.BookFindById.FindById(id)
+	foundBook, err := h.bookUseCase.FindById(id)
 
 	if err != nil {
 		return domain.Book{}, err
@@ -40,7 +36,7 @@ func (h BookHandler) FindById(id int) (domain.Book, error) {
 }
 
 func (h BookHandler) FindByTitle(title string) ([]domain.Book, error) {
-	foundBook, err := h.BookFindByTitle.FindByTitle(title)
+	foundBook, err := h.bookUseCase.FindByTitle(title)
 
 	if err != nil {
 		return nil, err
